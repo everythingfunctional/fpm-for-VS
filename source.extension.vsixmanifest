@@ -4,6 +4,7 @@
         <Identity Id="fpm_for_VS.7add2675-0a9c-493f-9886-9d674f711c42" Version="1.0" Language="en-US" Publisher="Brad Richardson" />
         <DisplayName>FPM for Visual Studio</DisplayName>
         <Description xml:space="preserve">Use the Fortran Package Manager (fpm) from within Visual Studio</Description>
+        <Tags>Fortran, build</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />

@@ -25,6 +25,7 @@ namespace fpm_for_VS
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid(fpm_for_VSPackage.PackageGuidString)]
+    [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class fpm_for_VSPackage : AsyncPackage
     {
         /// <summary>
@@ -46,6 +47,7 @@ namespace fpm_for_VS
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            await build.InitializeAsync(this);
         }
 
         #endregion

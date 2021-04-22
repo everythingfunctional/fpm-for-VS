@@ -36,7 +36,7 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
     <Groups>
-      <Group guid="guidfpm_for_VSPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+      <Group guid="guidfpm_for_VSPackageCmdSet" id="fpmCommands" priority="0x0600">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
       </Group>
     </Groups>
@@ -53,10 +53,10 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
       <Button guid="guidfpm_for_VSPackageCmdSet" id="buildId" priority="0x0100" type="Button">
-        <Parent guid="guidfpm_for_VSPackageCmdSet" id="MyMenuGroup" />
+        <Parent guid="guidfpm_for_VSPackageCmdSet" id="fpmCommands" />
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Invoke build</ButtonText>
+          <ButtonText>fpm build</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -78,7 +78,7 @@
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidfpm_for_VSPackageCmdSet" value="{4d594205-be54-4121-ad39-83e60f7738aa}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="fpmCommands" value="0x1020" />
       <IDSymbol name="buildId" value="0x0100" />
     </GuidSymbol>
 

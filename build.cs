@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
@@ -91,7 +92,14 @@ namespace fpm_for_VS
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            ProcessStartInfo start_info = new ProcessStartInfo("cmd.exe", "/k fpm.exe build");
+            DTE2 dte2 = Package.GetGlobalService(typeof(EnvDTE.DTE)) as DTE2;
+
+            ProcessStartInfo start_info = new ProcessStartInfo
+            {
+                Arguments = "/k fpm.exe build",
+                FileName = "cmd.exe",
+                WorkingDirectory = dte2.Solution.FullName
+            };
             Process proc = Process.Start(start_info);
             proc.WaitForExit();
         }

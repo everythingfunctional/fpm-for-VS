@@ -48,6 +48,7 @@ namespace fpm_for_VS
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await build.InitializeAsync(this);
+            await test.InitializeAsync(this);
         }
 
         #endregion

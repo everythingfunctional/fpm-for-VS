@@ -26,6 +26,7 @@ namespace fpm_for_VS
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [ProvideOptionPage(typeof(DialogPageProvider.General), "fpm Options", "General", 0, 0, true)]
+    [ProvideOptionPage(typeof(DialogPageProvider.Run), "fpm Options", "Run", 0, 0, true)]
     [Guid(fpm_for_VSPackage.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class fpm_for_VSPackage : AsyncPackage

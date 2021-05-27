@@ -6,5 +6,6 @@ namespace fpm_for_VS.Options
     internal class DialogPageProvider
     {
         public class General : BaseOptionPage<GeneralOptions> { }
+        public class Run : BaseOptionPage<RunOptions> { }
     }
 }

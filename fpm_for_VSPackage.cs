@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using fpm_for_VS.Options;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -24,6 +25,7 @@ namespace fpm_for_VS
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [ProvideOptionPage(typeof(DialogPageProvider.General), "fpm Options", "General", 0, 0, true)]
     [Guid(fpm_for_VSPackage.PackageGuidString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class fpm_for_VSPackage : AsyncPackage

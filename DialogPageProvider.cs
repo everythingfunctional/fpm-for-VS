@@ -7,5 +7,6 @@ namespace fpm_for_VS.Options
     {
         public class General : BaseOptionPage<GeneralOptions> { }
         public class Run : BaseOptionPage<RunOptions> { }
+        public class Test : BaseOptionPage<TestOptions> { }
     }
 }

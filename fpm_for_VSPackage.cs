@@ -51,6 +51,7 @@ namespace fpm_for_VS
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await build.InitializeAsync(this);
             await test.InitializeAsync(this);
+            await run.InitializeAsync(this);
         }
 
         #endregion

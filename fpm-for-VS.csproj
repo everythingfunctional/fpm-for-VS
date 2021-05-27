@@ -54,6 +54,7 @@
     <Compile Include="GeneralOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="fpm_for_VSPackage.cs" />
+    <Compile Include="run.cs" />
     <Compile Include="test.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\build.png" />
+    <Content Include="Resources\run.png" />
     <Content Include="Resources\test.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

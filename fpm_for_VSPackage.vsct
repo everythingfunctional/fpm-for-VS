@@ -75,6 +75,13 @@
           <ButtonText>fpm test</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidfpm_for_VSPackageCmdSet" id="runId" priority="0x0100" type="Button">
+        <Parent guid="guidfpm_for_VSPackageCmdSet" id="fpmCommands" />
+        <Icon guid="guidImages2" id="bmpPic1" />
+        <Strings>
+          <ButtonText>fpm run</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -86,6 +93,7 @@
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
       <Bitmap guid="guidImages" href="Resources\build.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
       <Bitmap guid="guidImages1" href="Resources\test.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+      <Bitmap guid="guidImages2" href="Resources\run.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
     </Bitmaps>
   </Commands>
 
@@ -99,6 +107,7 @@
       <IDSymbol name="fpmCommands" value="0x1020" />
       <IDSymbol name="buildId" value="0x0100" />
 	  <IDSymbol name="testId" value="0x0101" />
+	  <IDSymbol name ="runId" value="0x0102"/>
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{be4c33a9-abf7-40d9-8e0b-9fcee64b7494}">
@@ -111,6 +120,15 @@
     </GuidSymbol>
   
     <GuidSymbol value="{7bf4e15f-30ca-48f6-a3f4-537324806fcc}" name="guidImages1">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{8b578d0b-027b-48ad-ad86-be31509e3455}" name="guidImages2">
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />

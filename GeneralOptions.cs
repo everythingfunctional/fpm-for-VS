@@ -5,6 +5,12 @@ namespace fpm_for_VS.Options
     internal class GeneralOptions : BaseOptionModel<GeneralOptions>
     {
         [Category("Compilation")]
+        [DisplayName("Pre-execution Script")]
+        [Description("Anything that should be run before fpm?")]
+        [DefaultValue(null)]
+        public string preExecScript { get; set; }
+
+        [Category("Compilation")]
         [DisplayName("Compiler")]
         [Description("What compiler should fpm use to compile the code?")]
         [DefaultValue(null)]

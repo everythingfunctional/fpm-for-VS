@@ -4,6 +4,9 @@
         <Identity Id="fpm_for_VS.7add2675-0a9c-493f-9886-9d674f711c42" Version="0.1.0" Language="en-US" Publisher="Brad Richardson" />
         <DisplayName>fpm for Visual Studio</DisplayName>
         <Description xml:space="preserve">Use the Fortran Package Manager (fpm) from within Visual Studio</Description>
+        <MoreInfo>https://github.com/everythingfunctional/fpm-for-VS</MoreInfo>
+        <GettingStartedGuide>https://github.com/everythingfunctional/fpm-for-VS</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/everythingfunctional/fpm-for-VS/blob/main/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\fpmIcon.png</Icon>
         <PreviewImage>Resources\fpmPreview.png</PreviewImage>
         <Tags>Fortran, build, package, manager, test, run</Tags>

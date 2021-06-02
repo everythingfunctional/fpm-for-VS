@@ -35,7 +35,7 @@ namespace fpm_for_VS
         /// <summary>
         /// fpm_for_VSPackage GUID string.
         /// </summary>
-        public const string PackageGuidString = "3866e555-61c7-4dee-bfac-7e1f88e0242c";
+        public const string PackageGuidString = PackageGuids.guidfpm_for_VSPackageString;
 
         #region Package Members
 

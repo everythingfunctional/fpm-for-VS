@@ -20,12 +20,12 @@ namespace fpm_for_VS
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 0x0102;
+        public const int CommandId = PackageIds.runId;
 
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
-        public static readonly Guid CommandSet = new Guid("4d594205-be54-4121-ad39-83e60f7738aa");
+        public static readonly Guid CommandSet = PackageGuids.guidfpm_for_VSPackageCmdSet;
 
         /// <summary>
         /// VS Package that provides this command, not null.

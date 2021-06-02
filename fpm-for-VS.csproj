@@ -51,6 +51,11 @@
     </Compile>
     <Compile Include="build.cs" />
     <Compile Include="DialogPageProvider.cs" />
+    <Compile Include="fpm_for_VSPackage1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>fpm_for_VSPackage.vsct</DependentUpon>
+    </Compile>
     <Compile Include="GeneralOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="fpm_for_VSPackage.cs" />
@@ -80,6 +85,8 @@
   <ItemGroup>
     <VSCTCompile Include="fpm_for_VSPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>fpm_for_VSPackage1.cs</LastGenOutput>
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>

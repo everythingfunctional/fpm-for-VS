@@ -84,6 +84,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\build.png" />
+    <Content Include="Resources\fpmIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\fpmPreview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="Resources\run.png" />
     <Content Include="Resources\test.png" />
   </ItemGroup>

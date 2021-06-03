@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/a6qv09a5tgl4l6na/branch/main?svg=true)](https://ci.appveyor.com/project/everythingfunctional/fpm-for-vs/branch/main)
 
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/)
+Download this extension from the [VS Gallery](https://marketplace.visualstudio.com/items?itemName=SourceryInstitute.fpm-for-VS)
 or get the [CI build](https://www.vsixgallery.com/extension/fpm_for_VS.7add2675-0a9c-493f-9886-9d674f711c42).
 
 ------------

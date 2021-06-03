@@ -91,6 +91,10 @@ namespace fpm_for_VS
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs e)
         {
+            /// (c) 2021 Sourcery, Inc.
+            /// This software was developed for the U.S.Nuclear Regulatory Commission(US NRC) under contract # 31310020D0006:
+            /// "Technical Assistance in Support of NRC Nuclear Regulatory Research for Materials, Waste, and Reactor Programs"
+
             ThreadHelper.ThrowIfNotOnUIThread();
 
             DTE2 dte2 = Package.GetGlobalService(typeof(EnvDTE.DTE)) as DTE2;

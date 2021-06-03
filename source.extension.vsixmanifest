@@ -5,6 +5,7 @@
         <DisplayName>fpm for Visual Studio</DisplayName>
         <Description xml:space="preserve">Use the Fortran Package Manager (fpm) from within Visual Studio</Description>
         <MoreInfo>https://github.com/everythingfunctional/fpm-for-VS</MoreInfo>
+        <License>LICENSE</License>
         <GettingStartedGuide>https://github.com/everythingfunctional/fpm-for-VS</GettingStartedGuide>
         <ReleaseNotes>https://github.com/everythingfunctional/fpm-for-VS/blob/main/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\fpmIcon.png</Icon>

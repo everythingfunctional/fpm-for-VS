@@ -103,13 +103,13 @@ namespace fpm_for_VS
             {
                 Arguments =
                     "/k"
-                    + (GeneralOptions.Instance.preExecScript is null || GeneralOptions.Instance.preExecScript == "" ? "" : " " + GeneralOptions.Instance.preExecScript + " & ")
+                    + (GeneralOptions.Instance.preExecScript == "" ? "" : " " + GeneralOptions.Instance.preExecScript + " & ")
                     + " fpm.exe test"
-                    + (GeneralOptions.Instance.compiler is null || GeneralOptions.Instance.compiler == "" ? "" : " --compiler " + GeneralOptions.Instance.compiler)
-                    + (GeneralOptions.Instance.profile is null || GeneralOptions.Instance.profile == "" ? "" : " --profile " + GeneralOptions.Instance.profile)
-                    + (GeneralOptions.Instance.flags is null || GeneralOptions.Instance.flags == "" ? "" : " --flag " + GeneralOptions.Instance.flags)
-                    + (TestOptions.Instance.target is null || TestOptions.Instance.target == "" ? "" : " --target " + TestOptions.Instance.target)
-                    + (TestOptions.Instance.extraArgs is null || TestOptions.Instance.extraArgs == "" ? "" : " -- " + TestOptions.Instance.extraArgs),
+                    + (GeneralOptions.Instance.compiler == "" ? "" : " --compiler " + GeneralOptions.Instance.compiler)
+                    + (GeneralOptions.Instance.profile == "" ? "" : " --profile " + GeneralOptions.Instance.profile)
+                    + (GeneralOptions.Instance.flags == "" ? "" : " --flag " + GeneralOptions.Instance.flags)
+                    + (TestOptions.Instance.target == "" ? "" : " --target " + TestOptions.Instance.target)
+                    + (TestOptions.Instance.extraArgs == "" ? "" : " -- " + TestOptions.Instance.extraArgs),
                 FileName = "cmd.exe",
                 WorkingDirectory = dte2.Solution.FullName
             };

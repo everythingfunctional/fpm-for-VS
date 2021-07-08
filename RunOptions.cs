@@ -11,13 +11,13 @@ namespace fpm_for_VS.Options
         [Category("Execution")]
         [DisplayName("Target")]
         [Description("What should be run?")]
-        [DefaultValue(null)]
+        [DefaultValue("")]
         public string target { get; set; }
 
         [Category("Execution")]
         [DisplayName("Executable Arguments")]
         [Description("Any arguments that should be passed to the executable")]
-        [DefaultValue(null)]
+        [DefaultValue("")]
         public string extraArgs { get; set; }
 
         [Category("Execution")]

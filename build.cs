@@ -1,5 +1,6 @@
 ﻿using EnvDTE80;
 using fpm_for_VS.Options;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Task = System.Threading.Tasks.Task;
 
 namespace fpm_for_VS
@@ -94,24 +96,42 @@ namespace fpm_for_VS
             /// (c) 2021 Sourcery, Inc.
             /// This software was developed for the U.S.Nuclear Regulatory Commission(US NRC) under contract # 31310020D0006:
             /// "Technical Assistance in Support of NRC Nuclear Regulatory Research for Materials, Waste, and Reactor Programs"
-            
-                        ThreadHelper.ThrowIfNotOnUIThread();
+
+            ThreadHelper.ThrowIfNotOnUIThread();
 
             DTE2 dte2 = Package.GetGlobalService(typeof(EnvDTE.DTE)) as DTE2;
 
+            IVsOutputWindow outWindow = (IVsOutputWindow)Package.GetGlobalService(typeof(SVsOutputWindow));
+            Guid paneGuid = new Guid();
+            outWindow.CreatePane(paneGuid, "fpm Output", Convert.ToInt32(true), Convert.ToInt32(false));
+            outWindow.GetPane(ref paneGuid, out IVsOutputWindowPane outputPane);
+
+            string fpmCommand =
+                "fpm.exe build"
+                + (string.IsNullOrEmpty(GeneralOptions.Instance.compiler) ? "" : " --compiler " + GeneralOptions.Instance.compiler)
+                + (string.IsNullOrEmpty(GeneralOptions.Instance.profile) ? "" : " --profile " + GeneralOptions.Instance.profile)
+                + (string.IsNullOrEmpty(GeneralOptions.Instance.flags) ? "" : " --flag " + GeneralOptions.Instance.flags);
+
             ProcessStartInfo start_info = new ProcessStartInfo
             {
-                Arguments =
-                    "/k"
-                    + (GeneralOptions.Instance.preExecScript == "" ? "" : " " + GeneralOptions.Instance.preExecScript + " & ")
-                    + " fpm.exe build"
-                    + (GeneralOptions.Instance.compiler == "" ? "" : " --compiler " + GeneralOptions.Instance.compiler)
-                    + (GeneralOptions.Instance.profile == "" ? "" : " --profile " + GeneralOptions.Instance.profile)
-                    + (GeneralOptions.Instance.flags == "" ? "" : " --flag " + GeneralOptions.Instance.flags),
+                Arguments = "/k",
                 FileName = "cmd.exe",
-                WorkingDirectory = dte2.Solution.FullName
+                WorkingDirectory = dte2.Solution.FullName,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                UseShellExecute = false
             };
+            outputPane.OutputString("Starting fpm build\n");
+            outputPane.Activate();
             Process proc = Process.Start(start_info);
+            proc.OutputDataReceived += (outputSender, args) => outputPane.OutputStringThreadSafe(args.Data + "\n");
+            proc.ErrorDataReceived += (outputSender, args) => outputPane.OutputStringThreadSafe(args.Data + "\n");
+            proc.BeginOutputReadLine();
+            proc.BeginErrorReadLine();
+            if (!string.IsNullOrEmpty(GeneralOptions.Instance.preExecScript)) proc.StandardInput.WriteLine(GeneralOptions.Instance.preExecScript);
+            proc.StandardInput.WriteLine(fpmCommand);
+            proc.StandardInput.WriteLine("exit");
             proc.WaitForExit();
         }
     }

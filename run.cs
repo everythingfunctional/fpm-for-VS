@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Task = System.Threading.Tasks.Task;
 
 namespace fpm_for_VS
@@ -99,22 +100,40 @@ namespace fpm_for_VS
 
             DTE2 dte2 = Package.GetGlobalService(typeof(EnvDTE.DTE)) as DTE2;
 
+            IVsOutputWindow outWindow = (IVsOutputWindow)Package.GetGlobalService(typeof(SVsOutputWindow));
+            Guid paneGuid = new Guid();
+            outWindow.CreatePane(paneGuid, "fpm Output", Convert.ToInt32(true), Convert.ToInt32(false));
+            outWindow.GetPane(ref paneGuid, out IVsOutputWindowPane outputPane);
+
+            string fpmCommand =
+                "fpm.exe run"
+                    + (string.IsNullOrEmpty(GeneralOptions.Instance.compiler) ? "" : " --compiler " + GeneralOptions.Instance.compiler)
+                    + (string.IsNullOrEmpty(GeneralOptions.Instance.profile) ? "" : " --profile " + GeneralOptions.Instance.profile)
+                    + (string.IsNullOrEmpty(GeneralOptions.Instance.flags) ? "" : " --flag " + GeneralOptions.Instance.flags)
+                    + (RunOptions.Instance.example ? " --example" : "")
+                    + (string.IsNullOrEmpty(RunOptions.Instance.target) ? "" : " --target " + RunOptions.Instance.target)
+                    + (string.IsNullOrEmpty(RunOptions.Instance.extraArgs) ? "" : " -- " + RunOptions.Instance.extraArgs);
+
             ProcessStartInfo start_info = new ProcessStartInfo
             {
-                Arguments =
-                    "/k"
-                    + (GeneralOptions.Instance.preExecScript == "" ? "" : " " + GeneralOptions.Instance.preExecScript + " & ")
-                    + " fpm.exe run"
-                    + (GeneralOptions.Instance.compiler == "" ? "" : " --compiler " + GeneralOptions.Instance.compiler)
-                    + (GeneralOptions.Instance.profile == "" ? "" : " --profile " + GeneralOptions.Instance.profile)
-                    + (GeneralOptions.Instance.flags == "" ? "" : " --flag " + GeneralOptions.Instance.flags)
-                    + (RunOptions.Instance.example ? " --example" : "") 
-                    + (RunOptions.Instance.target == "" ? "" : " --target " + RunOptions.Instance.target)
-                    + (RunOptions.Instance.extraArgs == "" ? "" : " -- " + RunOptions.Instance.extraArgs),
+                Arguments = "/k",
                 FileName = "cmd.exe",
-                WorkingDirectory = dte2.Solution.FullName
+                WorkingDirectory = dte2.Solution.FullName,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                UseShellExecute = false
             };
+            outputPane.OutputString("Starting fpm test\n");
+            outputPane.Activate();
             Process proc = Process.Start(start_info);
+            proc.OutputDataReceived += (outputSender, args) => outputPane.OutputStringThreadSafe(args.Data + "\n");
+            proc.ErrorDataReceived += (outputSender, args) => outputPane.OutputStringThreadSafe(args.Data + "\n");
+            proc.BeginOutputReadLine();
+            proc.BeginErrorReadLine();
+            if (!string.IsNullOrEmpty(GeneralOptions.Instance.preExecScript)) proc.StandardInput.WriteLine(GeneralOptions.Instance.preExecScript);
+            proc.StandardInput.WriteLine(fpmCommand);
+            proc.StandardInput.WriteLine("exit");
             proc.WaitForExit();
         }
     }

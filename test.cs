@@ -90,14 +90,41 @@ namespace fpm_for_VS
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event args.</param>
-        private void Execute(object sender, EventArgs e)
+        private async void Execute(object sender, EventArgs e)
         {
             /// (c) 2021 Sourcery, Inc.
             /// This software was developed for the U.S.Nuclear Regulatory Commission(US NRC) under contract # 31310020D0006:
             /// "Technical Assistance in Support of NRC Nuclear Regulatory Research for Materials, Waste, and Reactor Programs"
 
-            ThreadHelper.ThrowIfNotOnUIThread();
+            try
+            {
+                await CommandBodyAsync();
+            }
+            catch (Exception ex)
+            {
+                // Generic last-chance MessageBox display 
+                // to ensure the async exception can't kill Visual Studio.
+                // Note that software for end-users (as opposed to internal tools)
+                // should usually log these details instead of displaying them directly to the user.
+                await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
+                VsShellUtilities.ShowMessageBox(
+                    this.package,
+                    ex.ToString(),
+                    "Command failed",
+                    OLEMSGICON.OLEMSGICON_CRITICAL,
+                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+            }
+        }
+
+        private async Task CommandBodyAsync()
+        {
+            /// (c) 2021 Sourcery, Inc.
+            /// This software was developed for the U.S.Nuclear Regulatory Commission(US NRC) under contract # 31310020D0006:
+            /// "Technical Assistance in Support of NRC Nuclear Regulatory Research for Materials, Waste, and Reactor Programs"
+
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             DTE2 dte2 = Package.GetGlobalService(typeof(EnvDTE.DTE)) as DTE2;
 
             IVsOutputWindow outWindow = (IVsOutputWindow)Package.GetGlobalService(typeof(SVsOutputWindow));
@@ -121,7 +148,8 @@ namespace fpm_for_VS
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 RedirectStandardInput = true,
-                UseShellExecute = false
+                UseShellExecute = false,
+                CreateNoWindow = true
             };
             outputPane.OutputString("Starting fpm test\n");
             outputPane.Activate();
@@ -130,9 +158,9 @@ namespace fpm_for_VS
             proc.ErrorDataReceived += (outputSender, args) => outputPane.OutputStringThreadSafe(args.Data + "\n");
             proc.BeginOutputReadLine();
             proc.BeginErrorReadLine();
-            if (!string.IsNullOrEmpty(GeneralOptions.Instance.preExecScript)) proc.StandardInput.WriteLine(GeneralOptions.Instance.preExecScript);
-            proc.StandardInput.WriteLine(fpmCommand);
-            proc.StandardInput.WriteLine("exit");
+            if (!string.IsNullOrEmpty(GeneralOptions.Instance.preExecScript)) await proc.StandardInput.WriteLineAsync(GeneralOptions.Instance.preExecScript).ConfigureAwait(true);
+            await proc.StandardInput.WriteLineAsync(fpmCommand).ConfigureAwait(true);
+            await proc.StandardInput.WriteLineAsync("exit").ConfigureAwait(true);
             proc.WaitForExit();
         }
     }
